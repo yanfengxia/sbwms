@@ -2,5 +2,5 @@ FROM openjdk:11-slim
 MAINTAINER xiayanfeng
 ARG JAR_FILE
 ADD ${JAR_FILE} app.jar
-#ADD elastic-apm-agent.jar agent.jar
-ENTRYPOINT [ "java", "-jar", "/app.jar", "${JAVA_OPTS}" ]
+ADD https://search.maven.org/remotecontent?filepath=co/elastic/apm/elastic-apm-agent/1.30.0/elastic-apm-agent-1.30.0.jar /agent.jar
+ENTRYPOINT [ "java", "-javaagent:/agent.jar", "-Delastic.apm.service_name=ms-user -Delastic.apm.application_packages=com.beta.ms.user -Delastic.apm.server_urls=http://linux.local:8200", "-jar", "/app.jar", "${JAVA_OPTS}" ]
