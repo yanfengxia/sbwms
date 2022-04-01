@@ -1,0 +1,54 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${REGISTRY_SERVICE_URL:http://linux.local:8761/eureka/}
+    fetch-registry: true
+
+spring:
+  application:
+    name: ms-proxy
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1
+    zuul:
+      enabled: true
+    async:
+      configurer:
+        enabled: true
+      enabled: true
+
+zuul:
+  ribbon:
+    eager-load:
+      enabled: true
+#  sensitive-headers: Cookie, Set-Cookie
+
+ribbon:
+  eureka:
+    enabled: true
+
+logging:
+  file:
+    name: ${LOG_URL:/var/log/ms/ms-proxy.log}
+    max-history: ${LOG_RETENTION_MAX_DAYS:14}
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss}[%-5level][%t][%X{traceId}|%X{spanId}][%X{tid}][%c{1.}] %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss}[%-5level][%t][%X{traceId}|%X{spanId}][%X{tid}][%c{1.}] %msg%n"
+    level: ${LOG_LEVEL:DEBUG}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, routes
+
+security:
+  jwt:
+    header: Authorization
+    prefix: Bearer
+    key: ${SIGN_KEY:7R9SATCVDWEXGZH2J4M5N6Q8R9SBUCVDXFYGZJ3K4M6P7Q8SATBUCWEXFY}

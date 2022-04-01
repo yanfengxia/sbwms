@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.3.12.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+ext {
+    springBootVersion = '2.3.12.RELEASE'
+    springCloudVersion = '2.2.8.RELEASE'
+}
+
+group 'com.beta.ms-proxy'
+version '1.0'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+
+
+dependencies {
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth', version: "${springCloudVersion}"
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: "${springCloudVersion}"
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-zuul', version: "${springCloudVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: "${springBootVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${springBootVersion}"
+
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${springBootVersion}"
+
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+
+    annotationProcessor('org.projectlombok:lombok')
+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
